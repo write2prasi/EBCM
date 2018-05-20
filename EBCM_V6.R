@@ -427,7 +427,7 @@ SampleData <- function(all_data_f)
 
 # Initialise Varible ---------------------------------------------------------------
 
-path <- "/home/praseeda/Documents/research/gooru/evidence/code/V6_ModifiedCompleted/"
+path <- "./Data/"
 
 cfileCED <- "completedCED.csv"
 pfileCED <- "progressCED.csv"
