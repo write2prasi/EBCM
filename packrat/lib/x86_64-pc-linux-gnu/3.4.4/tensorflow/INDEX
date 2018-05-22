@@ -1,6 +1,8 @@
+[.tensorflow.tensor     Subset tensors with '['
+all_dims                All dims
 evaluate                Evaluate a Model
 export_savedmodel       Export a Saved Model
-install_tensorflow      Install TensorFlow and it's dependencies
+install_tensorflow      Install TensorFlow and its dependencies
 install_tensorflow_extras
                         Install additional Python packages alongside
                         TensorFlow
@@ -11,6 +13,7 @@ shape                   Tensor shape
 tensorboard             TensorBoard Visualization Tool
 tensorflow              TensorFlow for R
 tf                      Main TensorFlow module
+tf_extract_opts         Tensor extract options
 tfe_enable_eager_execution
                         Enables, for the rest of the lifetime of this
                         program, eager execution.

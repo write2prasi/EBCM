@@ -1,7 +1,7 @@
 Package: reticulate
 Type: Package
 Title: Interface to 'Python'
-Version: 1.7
+Version: 1.7.1
 Authors@R: c( person("JJ", "Allaire", role = c("aut", "cre"), email =
     "jj@rstudio.com"), person("Kevin", "Ushey", role = c("aut"), email
     = "kevin@rstudio.com"), person("RStudio", role = c("cph", "fnd")),
@@ -25,21 +25,27 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.0)
 Imports: utils, graphics, jsonlite, Rcpp (>= 0.12.7), Matrix
-Suggests: testthat, knitr, callr
+Suggests: testthat, knitr, callr, rmarkdown
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-NeedsCompilation: yes
-Packaged: 2018-04-28 18:15:05 UTC; jjallaire
 Author: JJ Allaire [aut, cre], Kevin Ushey [aut], RStudio [cph, fnd],
-    Yuan Tang [aut, cph] (<https://orcid.org/0000-0001-5243-233X>),
-    Dirk Eddelbuettel [ctb, cph], Bryan Lewis [ctb, cph], Marcus
-    Geelnard [ctb, cph] (TinyThread library,
-    http://tinythreadpp.bitsnbites.eu/)
+    Yuan Tang [aut, cph] (0000-0001-5243-233X), Dirk Eddelbuettel [ctb,
+    cph], Bryan Lewis [ctb, cph], Marcus Geelnard [ctb, cph]
+    (TinyThread library, http://tinythreadpp.bitsnbites.eu/)
 Maintainer: JJ Allaire <jj@rstudio.com>
-Repository: CRAN
-Date/Publication: 2018-04-28 19:03:04 UTC
-Built: R 3.4.4; x86_64-pc-linux-gnu; 2018-05-20 16:57:20 UTC; unix
+Built: R 3.4.4; x86_64-pc-linux-gnu; 2018-05-21 10:21:28 UTC; unix
+RemoteType: github
+RemoteHost: https://api.github.com
+RemoteRepo: reticulate
+RemoteUsername: rstudio
+RemoteRef: master
+RemoteSha: 52034108957555d27269ec0ce58a0d6ba718416d
+GithubRepo: reticulate
+GithubUsername: rstudio
+GithubRef: master
+GithubSHA1: 52034108957555d27269ec0ce58a0d6ba718416d
 InstallAgent: packrat 0.4.9.2
-InstallSource: CRAN
-Hash: 554bd810799f8847b28d27669a68e60a
+InstallSource: github
+Hash: b95a9979bf8aa6fbccf57807ee055482

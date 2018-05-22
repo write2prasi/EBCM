@@ -36,7 +36,7 @@ Author: JJ Allaire [aut, cre], François Chollet [aut, cph], RStudio
 Maintainer: JJ Allaire <jj@rstudio.com>
 Repository: CRAN
 Date/Publication: 2018-04-29 20:08:05 UTC
-Built: R 3.4.4; ; 2018-05-20 17:07:42 UTC; unix
+Built: R 3.4.4; ; 2018-05-21 07:38:09 UTC; unix
 InstallAgent: packrat 0.4.9.2
 InstallSource: CRAN
 Hash: 0992bd85783c3f2b99e785cf15b7054c

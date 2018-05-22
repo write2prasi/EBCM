@@ -1,11 +1,12 @@
 Package: tensorflow
 Type: Package
 Title: R Interface to 'TensorFlow'
-Version: 1.5
+Version: 1.5.0.9001
 Authors@R: c( person("JJ", "Allaire", role = c("aut", "cre"), email =
     "jj@rstudio.com"), person(family = "RStudio", role = c("cph",
     "fnd")), person("Yuan", "Tang", role = c("aut", "cph"), email =
-    "terrytangyuan@gmail.com"), person("Dirk", "Eddelbuettel", role =
+    "terrytangyuan@gmail.com", comment = c(ORCID =
+    "0000-0001-5243-233X")), person("Dirk", "Eddelbuettel", role =
     c("ctb", "cph"), email = "edd@debian.org"), person("Nick",
     "Golding", role = c("ctb", "cph"), email =
     "nick.golding.research@gmail.com"), person(family = "Google Inc.",
@@ -30,19 +31,27 @@ SystemRequirements: TensorFlow (https://www.tensorflow.org/)
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.1)
-Imports: config, jsonlite (>= 1.2), processx, reticulate (>= 1.4),
-    tfruns (>= 1.0), utils, yaml, rstudioapi (>= 0.7)
+Imports: config, jsonlite (>= 1.2), processx, reticulate (>=
+    1.4.0.9000), tfruns (>= 1.0), utils, yaml, rstudioapi (>= 0.7)
+Remotes: rstudio/reticulate
+Roxygen: list(markdown = TRUE)
 Suggests: testthat, keras, tfestimators
 RoxygenNote: 6.0.1
-NeedsCompilation: no
-Packaged: 2018-01-17 10:55:11 UTC; jjallaire
-Author: JJ Allaire [aut, cre], RStudio [cph, fnd], Yuan Tang [aut,
-    cph], Dirk Eddelbuettel [ctb, cph], Nick Golding [ctb, cph], Google
-    Inc. [ctb, cph] (Examples and Tutorials)
+Author: JJ Allaire [aut, cre], RStudio [cph, fnd], Yuan Tang [aut, cph]
+    (0000-0001-5243-233X), Dirk Eddelbuettel [ctb, cph], Nick Golding
+    [ctb, cph], Google Inc. [ctb, cph] (Examples and Tutorials)
 Maintainer: JJ Allaire <jj@rstudio.com>
-Repository: CRAN
-Date/Publication: 2018-01-17 15:02:31 UTC
-Built: R 3.4.4; ; 2018-05-20 17:07:24 UTC; unix
+Built: R 3.4.4; ; 2018-05-21 10:24:36 UTC; unix
+RemoteType: github
+RemoteHost: https://api.github.com
+RemoteRepo: tensorflow
+RemoteUsername: rstudio
+RemoteRef: master
+RemoteSha: d6df08f22f6c0cbb05705b8c720f2b1e5a841025
+GithubRepo: tensorflow
+GithubUsername: rstudio
+GithubRef: master
+GithubSHA1: d6df08f22f6c0cbb05705b8c720f2b1e5a841025
 InstallAgent: packrat 0.4.9.2
-InstallSource: CRAN
-Hash: d8c032f4c2cde370f41688fe5209b09e
+InstallSource: github
+Hash: a6b7fa839e4b94139feffe9b3a529c7d

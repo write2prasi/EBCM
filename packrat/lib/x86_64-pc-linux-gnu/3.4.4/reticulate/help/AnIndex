@@ -24,6 +24,7 @@ py_capture_output	py_capture_output
 py_clear_last_error	py_last_error
 py_config	py_config
 py_config_error_message	py_config_error_message
+py_del_item	py_del_item
 py_dict	dict
 py_discover_config	py_discover_config
 py_eval	py_run
@@ -32,6 +33,7 @@ py_function_custom_scaffold	py_function_custom_scaffold
 py_function_docs	py_function_wrapper
 py_function_wrapper	py_function_wrapper
 py_get_attr	py_get_attr
+py_get_item	py_get_item
 py_has_attr	py_has_attr
 py_help	py_help
 py_id	py_id
@@ -49,6 +51,7 @@ py_run_file	py_run
 py_run_string	py_run
 py_save_object	py_save_object
 py_set_attr	py_set_attr
+py_set_item	py_set_item
 py_set_seed	py_set_seed
 py_str	py_str
 py_suppress_warnings	py_suppress_warnings
