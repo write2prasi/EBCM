@@ -5,11 +5,9 @@ library(dplyr)
 
 buildData <- function(data)
 {
-
-  
   #data <- REI
   data <- select(data, status, everything())
-  data <- select(data, -(user_id:competency_code))
+  data <- select(data,-(user_id:competency_code))
   # plot(data$average_score,
   #      data$total_time_spent,
   #      pch=21, bg=c("red","blue","green", "orange", "black", "pink", "white", "maroon")[unclass(data$competency_code)],
@@ -50,7 +48,7 @@ modelANN <- function(data.test,
 {
   model <- keras_model_sequential()
   model %>%
-    layer_dense(units =50,
+    layer_dense(units = 50,
                 activation = 'relu',
                 input_shape = c(6)) %>%
     #layer_dense(units = 20, activation = 'relu') %>%
@@ -88,11 +86,10 @@ modelANN <- function(data.test,
   classes <-
     model %>% predict_classes(data.test, batch_size = 16, verbose = 1)
   table(data.testtarget, classes)
-  score <-
-    model %>% evaluate(data.test,
-                       data.testLabels,
-                       batch_size = 16,
-                       verbose = 1)
+  score <- model %>% evaluate(data.test,
+                              data.testLabels,
+                              batch_size = 16,
+                              verbose = 1)
   print(score)
   
 }
