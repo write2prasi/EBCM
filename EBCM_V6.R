@@ -9,12 +9,12 @@ library(splitstackshape)
 rm(list=ls(all=TRUE))
 
 builtdata <- function(path, cfile, pfile, afile, ufile){
-  
-  completed <- fread(file.path(path, cfile))
-  progress <- fread(file.path(path, pfile))
-  allcollection <- fread(file.path(path, afile))
-  usercollection <- fread(file.path(path, ufile))
-  
+
+	completed <- fread(file.path(path, cfile))
+	progress <- fread(file.path(path, pfile))
+	allcollection <- fread(file.path(path, afile))
+	usercollection <- fread(file.path(path, ufile))
+	
   # Reshape data ---------
   completed$status <- as.factor(completed$status)
   progress$status <- as.factor(progress$status)
@@ -28,23 +28,23 @@ builtdata <- function(path, cfile, pfile, afile, ufile){
   newcollection <-data.frame(character(),character())
   if(ncol(a)>2)
   {
-    for(i in 1:nrow(a))
-    {
-      size <- ncol(a)
-      for(j in 2:size)
-      {
-        if(!is.na(a[i,j, with=FALSE]))
-        {
-          newrow <- data.frame(a[i,1 , with=FALSE], a[i,j , with=FALSE])
-          colnames(newrow) <- c("user_id", "competency_code")
-          newcollection <-rbind(newcollection,newrow)
-        }
-      }
-    }
+  	for(i in 1:nrow(a))
+  	{
+  		size <- ncol(a)
+  		for(j in 2:size)
+  		{
+  			if(!is.na(a[i,j, with=FALSE]))
+  			{
+  				newrow <- data.frame(a[i,1 , with=FALSE], a[i,j , with=FALSE])
+  				colnames(newrow) <- c("user_id", "competency_code")
+  				newcollection <-rbind(newcollection,newrow)
+  			}
+  		}
+  	}
   }
   if(ncol(a)==2)
   {
-    newcollection<-data.frame(allcollection)
+  	newcollection<-data.frame(allcollection)
   }
   
   newcollection$competency_code <- as.character(newcollection$competency_code)
@@ -55,29 +55,29 @@ builtdata <- function(path, cfile, pfile, afile, ufile){
   
   for(i in 1:nrow(newcollection))
   {
-    newcollection$competency_code[i] <-str_replace_all(newcollection$competency_code[i],'[""]','')
+  	newcollection$competency_code[i] <-str_replace_all(newcollection$competency_code[i],'[""]','')
   }
   
   for(i in 1:nrow(newcollection))
   {
-    newcollection$competency_code[i] <-str_replace_all(newcollection$competency_code[i],'[\\[]','')
+  	newcollection$competency_code[i] <-str_replace_all(newcollection$competency_code[i],'[\\[]','')
   }
   
   for(i in 1:nrow(newcollection))
   {
-    newcollection$competency_code[i] <-str_replace_all(newcollection$competency_code[i],'[\\]]','')
+  	newcollection$competency_code[i] <-str_replace_all(newcollection$competency_code[i],'[\\]]','')
   }
   
   # Count the number of collections for each user, for each competency
   # Find the total number of collections for each competency
   
   user_col <- usercollection %>%
-    group_by(user_id,competency_code) %>%
-    summarise(count=n())
+  group_by(user_id,competency_code) %>%
+  summarise(count=n())
   
   all_col<- newcollection %>%
-    group_by(competency_code) %>%
-    summarise(count=n())
+  group_by(competency_code) %>%
+  summarise(count=n())
   
   #changing the column names of all_col and user_col
   
@@ -98,7 +98,7 @@ builtdata <- function(path, cfile, pfile, afile, ufile){
   
   for(i in 1:nrow(val))
   {
-    val$resource_count[i]<-val$ind_count[i]/val$total_count[i]
+  	val$resource_count[i]<-val$ind_count[i]/val$total_count[i]
   }
   
   #Keeping only resource_count in val
@@ -157,8 +157,8 @@ BuildAndTestModelMarks <- function(all_data_f,test_data)
   # activation = relu -> Rectified Linear Units
   model <- keras_model_sequential()
   model %>% 
-    layer_dense(units = 50,activation = 'relu', input_shape = c(6)) %>%
-    layer_dense(units = 2, activation = 'softmax')
+  layer_dense(units = 50,activation = 'relu', input_shape = c(6)) %>%
+  layer_dense(units = 2, activation = 'softmax')
   
   #summary(model)
   
@@ -166,9 +166,9 @@ BuildAndTestModelMarks <- function(all_data_f,test_data)
   # Since we have 2 categories we use binary_crossentropy -> If we have more than 2 then 
   # use categorical_crossentropy
   model %>%
-    compile(loss = 'binary_crossentropy',
-            optimizer = 'adam' ,
-            metrics = 'accuracy')
+  compile(loss = 'binary_crossentropy',
+  	optimizer = 'adam' ,
+  	metrics = 'accuracy')
   
   #Fit model Multilayer perceptron Neural network for multiclass softmax classification
   # batch_size is the number of samples you can use per gradient, default = 32 
@@ -176,23 +176,23 @@ BuildAndTestModelMarks <- function(all_data_f,test_data)
   #
   
   history <- model %>%
-    fit(all_train,
-        trainlabels,
-        epochs = 100,
-        batch_size = 32,
-        validation_split=0.1)
+  fit(all_train,
+  	trainlabels,
+  	epochs = 100,
+  	batch_size = 32,
+  	validation_split=0.1)
   
   #plot(history)
   
   #Evaluate the model with the test data
   model1 <- model %>%
-    evaluate(all_test,testlabels)
+  evaluate(all_test,testlabels)
   
   #Prediction and confusion matrix - test data
   prob <- model %>%
-    predict_proba(all_test)
+  predict_proba(all_test)
   pred <- model %>%
-    predict_classes(all_test)
+  predict_classes(all_test)
   
   #Confusion matrix
   table1 <- table(Predicted = pred, Actual = test_target)
@@ -225,8 +225,8 @@ BuildAndTestModelNoMarks <- function(all_data_f,test_data)
   # activation = relu -> Rectified Linear Units
   model_f <- keras_model_sequential()
   model_f %>% 
-    layer_dense(units = 50,activation = 'relu', input_shape = c(4)) %>%
-    layer_dense(units = 2, activation = 'softmax')
+  layer_dense(units = 50,activation = 'relu', input_shape = c(4)) %>%
+  layer_dense(units = 2, activation = 'softmax')
   
   #summary(model_f)
   
@@ -235,9 +235,9 @@ BuildAndTestModelNoMarks <- function(all_data_f,test_data)
   # Since we have 2 categories we use binary_crossentropy -> If we have more than 2 then 
   # use categorical_crossentropy
   model_f %>%
-    compile(loss = 'binary_crossentropy',
-            optimizer = 'adam' ,
-            metrics = 'accuracy')
+  compile(loss = 'binary_crossentropy',
+  	optimizer = 'adam' ,
+  	metrics = 'accuracy')
   
   #Fit model Multilayer perceptron Neural network for multiclass softmax classification
   # batch_size is the number of samples you can use per gradient, default = 32 
@@ -245,23 +245,23 @@ BuildAndTestModelNoMarks <- function(all_data_f,test_data)
   #
   
   history_f <- model_f %>%
-    fit(all_train_f,
-        trainlabels_f,
-        epochs = 100,
-        batch_size = 32,
-        validation_split=0.1)
+  fit(all_train_f,
+  	trainlabels_f,
+  	epochs = 100,
+  	batch_size = 32,
+  	validation_split=0.1)
   
   #plot(history_f)
   
   #Evaluate the model with the test data
   model1_f <- model_f %>%
-    evaluate(all_test_f,testlabels_f)
+  evaluate(all_test_f,testlabels_f)
   
   #Prediction and confusion matrix - test data
   prob_f <- model_f %>%
-    predict_proba(all_test_f)
+  predict_proba(all_test_f)
   pred_f <- model_f %>%
-    predict_classes(all_test_f)
+  predict_classes(all_test_f)
   
   #Confusion matrix
   table1_f <- table(Predicted = pred_f, Actual = test_target_f)
@@ -292,8 +292,8 @@ OneBuildAndTestModelMarks <- function(all_data_f,ind)
   # activation = relu -> Rectified Linear Units
   model <- keras_model_sequential()
   model %>% 
-    layer_dense(units = 50,activation = 'relu', input_shape = c(6)) %>%
-    layer_dense(units = 4, activation = 'softmax')
+  layer_dense(units = 50,activation = 'relu', input_shape = c(6)) %>%
+  layer_dense(units = 4, activation = 'softmax')
   
   #summary(model)
   
@@ -301,9 +301,9 @@ OneBuildAndTestModelMarks <- function(all_data_f,ind)
   # Since we have 2 categories we use binary_crossentropy -> If we have more than 2 then 
   # use categorical_crossentropy
   model %>%
-    compile(loss = 'binary_crossentropy',
-            optimizer = 'adam' ,
-            metrics = 'accuracy')
+  compile(loss = 'binary_crossentropy',
+  	optimizer = 'adam' ,
+  	metrics = 'accuracy')
   
   #Fit model Multilayer perceptron Neural network for multiclass softmax classification
   # batch_size is the number of samples you can use per gradient, default = 32 
@@ -311,23 +311,23 @@ OneBuildAndTestModelMarks <- function(all_data_f,ind)
   #
   
   history <- model %>%
-    fit(all_train,
-        trainlabels,
-        epochs = 100,
-        batch_size = 32,
-        validation_split=0.1)
+  fit(all_train,
+  	trainlabels,
+  	epochs = 100,
+  	batch_size = 32,
+  	validation_split=0.1)
   
   #plot(history)
   
   #Evaluate the model with the test data
   model1 <- model %>%
-    evaluate(all_test,testlabels)
+  evaluate(all_test,testlabels)
   
   #Prediction and confusion matrix - test data
   prob <- model %>%
-    predict_proba(all_test)
+  predict_proba(all_test)
   pred <- model %>%
-    predict_classes(all_test)
+  predict_classes(all_test)
   
   #Confusion matrix
   table1 <- table(Predicted = pred, Actual = test_target)
@@ -360,8 +360,8 @@ OneBuildAndTestModelNoMarks <- function(all_data_f,ind)
   # activation = relu -> Rectified Linear Units
   model_f <- keras_model_sequential()
   model_f %>% 
-    layer_dense(units = 50,activation = 'relu', input_shape = c(4)) %>%
-    layer_dense(units = 4, activation = 'softmax')
+  layer_dense(units = 50,activation = 'relu', input_shape = c(4)) %>%
+  layer_dense(units = 4, activation = 'softmax')
   
   #summary(model_f)
   
@@ -370,9 +370,9 @@ OneBuildAndTestModelNoMarks <- function(all_data_f,ind)
   # Since we have 2 categories we use binary_crossentropy -> If we have more than 2 then 
   # use categorical_crossentropy
   model_f %>%
-    compile(loss = 'binary_crossentropy',
-            optimizer = 'adam' ,
-            metrics = 'accuracy')
+  compile(loss = 'binary_crossentropy',
+  	optimizer = 'adam' ,
+  	metrics = 'accuracy')
   
   #Fit model Multilayer perceptron Neural network for multiclass softmax classification
   # batch_size is the number of samples you can use per gradient, default = 32 
@@ -380,23 +380,23 @@ OneBuildAndTestModelNoMarks <- function(all_data_f,ind)
   #
   
   history_f <- model_f %>%
-    fit(all_train_f,
-        trainlabels_f,
-        epochs = 100,
-        batch_size = 32,
-        validation_split=0.1)
+  fit(all_train_f,
+  	trainlabels_f,
+  	epochs = 100,
+  	batch_size = 32,
+  	validation_split=0.1)
   
   #plot(history_f)
   
   #Evaluate the model with the test data
   model1_f <- model_f %>%
-    evaluate(all_test_f,testlabels_f)
+  evaluate(all_test_f,testlabels_f)
   
   #Prediction and confusion matrix - test data
   prob_f <- model_f %>%
-    predict_proba(all_test_f)
+  predict_proba(all_test_f)
   pred_f <- model_f %>%
-    predict_classes(all_test_f)
+  predict_classes(all_test_f)
   
   #Confusion matrix
   table1_f <- table(Predicted = pred_f, Actual = test_target_f)
@@ -410,24 +410,24 @@ OneBuildAndTestModelNoMarks <- function(all_data_f,ind)
 
 ShuffleData <- function(all_data_f)
 {
-  set.seed(12345)
-  all_data_f <- all_data_f[sample(nrow(all_data_f)),]
-  return(all_data_f)
+	set.seed(12345)
+	all_data_f <- all_data_f[sample(nrow(all_data_f)),]
+	return(all_data_f)
 }
 
 #Seed function to make data repeatable and shuffle the data
 
 SampleData <- function(all_data_f)
 {
-  set.seed(12345)
-  ind <- sample(2,nrow(all_data_f),replace=T, prob = c(0.8,0.2))
-  return(ind)
+	set.seed(12345)
+	ind <- sample(2,nrow(all_data_f),replace=T, prob = c(0.8,0.2))
+	return(ind)
 }
 
 
 # Initialise Varible ---------------------------------------------------------------
 
-path <- "/home/praseeda/Documents/research/gooru/evidence/code/V6_ModifiedCompleted/"
+path <- "./Data/"
 
 cfileCED <- "completedCED.csv"
 pfileCED <- "progressCED.csv"
@@ -483,10 +483,8 @@ all_data_fNQ <- builtdata(path, cfileNQ, pfileNQ, afileNQ, ufileNQ)
 all_data_fOAT <- builtdata(path, cfileOAT, pfileOAT, afileOAT, ufileOAT)
 all_data_fREI <- builtdata(path, cfileREI, pfileREI, afileREI, ufileREI)
 all_data_fRL <- builtdata(path, cfileRL, pfileRL, afileRL, ufileRL)
-
-
-
 all_data_fCED = ShuffleData(all_data_f = all_data_fCED)
+
 ind_CED = SampleData(all_data_fCED)
 table_CED=OneBuildAndTestModelMarks(all_data_fCED,ind_CED)
 table1_CED=OneBuildAndTestModelNoMarks(all_data_fCED,ind_CED)
