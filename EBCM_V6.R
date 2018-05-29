@@ -427,7 +427,7 @@ SampleData <- function(all_data_f)
 
 # Initialise Varible ---------------------------------------------------------------
 
-path <- "/home/thrvkrm/Desktop/EBCM/EBCM/Data/"
+path <- "./Data/"
 
 cfileCED <- "completedCED.csv"
 pfileCED <- "progressCED.csv"
