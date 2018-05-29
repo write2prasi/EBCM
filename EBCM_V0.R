@@ -5,9 +5,10 @@ library(dplyr)
 
 buildData <- function(data)
 {
-  #data <- REI
   data <- select(data, status, everything())
   data <- select(data,-(user_id:competency_code))
+  
+  
   # plot(data$average_score,
   #      data$total_time_spent,
   #      pch=21, bg=c("red","blue","green", "orange", "black", "pink", "white", "maroon")[unclass(data$competency_code)],
@@ -17,6 +18,8 @@ buildData <- function(data)
   # cor(data$average_score, data$total_time_spent)
   # M <- cor(data[,1:4])
   # corrplot(M, method="circle")
+  
+  
   
   data[, 1] <- as.numeric(data[, 1]) - 1
   data <- as.matrix(data)
@@ -37,7 +40,7 @@ buildData <- function(data)
   data.trainLabels <- to_categorical(data.trainingtarget)
   data.testLabels <- to_categorical(data.testtarget)
   
-  modelANN(data.test, data.testtarget, data.testLabels)
+  return (modelANN(data.test, data.testtarget, data.testLabels))
 }
 
 
@@ -51,7 +54,7 @@ modelANN <- function(data.test,
     layer_dense(units = 50,
                 activation = 'relu',
                 input_shape = c(6)) %>%
-    #layer_dense(units = 20, activation = 'relu') %>%
+    layer_dense(units = 20, activation = 'relu') %>%
     layer_dense(units = 2, activation = 'softmax')
   
   # model %>%
@@ -75,10 +78,10 @@ modelANN <- function(data.test,
   history <- model %>% fit(
     data.training,
     data.trainLabels,
-    epochs = 136,
+    epochs = 50,
     batch_size = 16,
     validation_split = 0.1,
-    verbose = 1
+    verbose = 0
   )
   plotG(history)
   
@@ -226,4 +229,4 @@ REI <- merge(x = cfileREI, y = pfileREI, all = TRUE)
 RL <- merge(x = cfileRL, y = pfileRL, all = TRUE)
 
 data <- CED
-buildData(data)
+model <- buildData(data)
