@@ -1,35 +1,37 @@
-OneBuildAndTestModelNoMarks <- function(all_data_f,ind)
+OneBuildAndTestModelNoMarks <- function(all_data_f, ind)
 {
   #Model removing marks and keep other dimensions
   #training data and testing same as above , but removing the average marks and
   #total marks column
   
   #training data set
-  all_train_f <- all_data_f[ind==1,c(1,2,5,6)]
+  all_train_f <- all_data_f[ind == 1, c(1, 2, 5, 6)]
   #test data set
-  all_test_f  <- all_data_f[ind==2,c(1,2,5,6)]
+  all_test_f  <- all_data_f[ind == 2, c(1, 2, 5, 6)]
   
-  train_target_f <- all_data_f[ind==1,7]
-  test_target_f <- all_data_f[ind==2,7]
+  train_target_f <- all_data_f[ind == 1, 7]
+  test_target_f <- all_data_f[ind == 2, 7]
   
   #One hot encoding to_categorical converts class vectors or integers to binary class
   # matrix
-  trainlabels_f <-to_categorical(train_target_f)
+  trainlabels_f <- to_categorical(train_target_f)
   testlabels_f <- to_categorical(test_target_f)
   
   #Create a sequential model layer_dense for a densely connected units =8
   # means that there are 8 nodes/neurons in the hidden layer
   # activation = relu -> Rectified Linear Units
   model_f <- keras_model_sequential()
-  model_f %>% 
-    layer_dense(units = 50,activation = 'relu', input_shape = c(4)) %>%
+  model_f %>%
+    layer_dense(units = 50,
+                activation = 'relu',
+                input_shape = c(4)) %>%
     layer_dense(units = 2, activation = 'softmax')
   
   #summary(model_f)
   
   
   #Compile the model to configure the learning process
-  # Since we have 2 categories we use binary_crossentropy -> If we have more than 2 then 
+  # Since we have 2 categories we use binary_crossentropy -> If we have more than 2 then
   # use categorical_crossentropy
   model_f %>%
     compile(loss = 'binary_crossentropy',
@@ -37,22 +39,24 @@ OneBuildAndTestModelNoMarks <- function(all_data_f,ind)
             metrics = 'accuracy')
   
   #Fit model Multilayer perceptron Neural network for multiclass softmax classification
-  # batch_size is the number of samples you can use per gradient, default = 32 
+  # batch_size is the number of samples you can use per gradient, default = 32
   #change and see what impact it has on the accuracy of the model
   #
   
   history_f <- model_f %>%
-    fit(all_train_f,
-        trainlabels_f,
-        epochs = 100,
-        batch_size = 64,
-        validation_split=0.1)
+    fit(
+      all_train_f,
+      trainlabels_f,
+      epochs = 100,
+      batch_size = 64,
+      validation_split = 0.1
+    )
   
   #plot(history_f)
   
   #Evaluate the model with the test data
   model1_f <- model_f %>%
-    evaluate(all_test_f,testlabels_f)
+    evaluate(all_test_f, testlabels_f)
   
   #Prediction and confusion matrix - test data
   prob_f <- model_f %>%

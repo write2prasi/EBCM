@@ -1,17 +1,16 @@
-TestAccuracyNoMarks <- function(model,test_data)
+TestAccuracyNoMarks <- function(model, test_data)
 {
-
   #test data set
-  all_test_f  <- test_data[,c(1,2,5,6)]
-  test_target_f <- test_data[,7]
+  all_test_f  <- test_data[, c(1, 2, 5, 6)]
+  test_target_f <- test_data[, 7]
   
-#One hot encoding to_categorical converts class vectors or integers to binary class
+  #One hot encoding to_categorical converts class vectors or integers to binary class
   # matrix
   testlabels <- to_categorical(test_target_f)
   
   #Evaluate the model with the test data
   model1 <- model %>%
-    evaluate(all_test_f,testlabels)
+    evaluate(all_test_f, testlabels)
   
   #Prediction and confusion matrix - test data
   prob <- model %>%
@@ -25,4 +24,3 @@ TestAccuracyNoMarks <- function(model,test_data)
   return(model1)
   
 }
-
